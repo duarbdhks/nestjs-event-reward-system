@@ -1,0 +1,15 @@
+## IDE Editor
+.idea/
+.vscode/
+.cursor
+
+node_modules/
+dist/
+
+## environment file
+.env*
+!.env.example
+coverage/
+
+# ds_store
+**/.DS_Store
