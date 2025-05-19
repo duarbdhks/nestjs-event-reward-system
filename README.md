@@ -301,14 +301,14 @@ erDiagram
 
 #### \[보상 요청]
 
-| 메서드  | 경로                           | 설명                | 권한                             |
-|------|------------------------------|-------------------|--------------------------------|
-| POST | `/rewards/request`          | 보상 요청 생성          | `USER`                         |
-| GET  | `/rewards/request/my`       | 본인 요청 이력 조회       | `USER`                         |
-| GET  | `/rewards/request/all`      | 전체 요청 이력 조회       | `AUDITOR`, `OPERATOR`, `ADMIN` |
-| GET  | `/rewards/request/:id`      | 특정 요청 상세 조회       | `AUDITOR`, `OPERATOR`, `ADMIN` |
-| PATCH| `/rewards/request/:id/grant`| 보상 요청 승인         | `OPERATOR`, `ADMIN`           |
-| PATCH| `/rewards/request/:id/reject`| 보상 요청 거절         | `OPERATOR`, `ADMIN`           |
+| 메서드   | 경로                            | 설명          | 권한                             |
+|-------|-------------------------------|-------------|--------------------------------|
+| POST  | `/rewards/request`            | 보상 요청 생성    | `USER`                         |
+| GET   | `/rewards/request/my`         | 본인 요청 이력 조회 | `USER`                         |
+| GET   | `/rewards/request/all`        | 전체 요청 이력 조회 | `AUDITOR`, `OPERATOR`, `ADMIN` |
+| GET   | `/rewards/request/:id`        | 특정 요청 상세 조회 | `AUDITOR`, `OPERATOR`, `ADMIN` |
+| PATCH | `/rewards/request/:id/grant`  | 보상 요청 승인    | `OPERATOR`, `ADMIN`            |
+| PATCH | `/rewards/request/:id/reject` | 보상 요청 거절    | `OPERATOR`, `ADMIN`            |
 
 ---
 
@@ -346,13 +346,6 @@ $ docker-compose up --build
 * 이벤트 조건은 문자열로 관리하며, 나중에 DSL 파서나 엔진 도입 여지 고려
 * MSA 간 인증은 내부 Secret 기반의 JWT 공유 구조로 처리 가능
 * 향후 Redis, Kafka 등으로 결합도를 낮추고, 비동기 처리 고려
-
----
-
-## 🧪 테스트 (선택 사항)
-
-* Jest 기반 단위 테스트 파일 일부 포함 (`*.spec.ts`)
-* 서비스 간 분리된 테스트 케이스 작성 권장
 
 ---
 
