@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "outDir": "../../dist",
+    "rootDir": "../..",
+    "baseUrl": ".",
+    "paths": {
+      "@libs/*": ["../../libs/*"],
+      "@common/*": ["../../libs/common/*"],
+      "@guard/*": ["../../libs/common/guard/*"],
+      "@decorator/*": ["../../libs/common/decorator/*"]
+    }
+  },
+  "include": ["src/**/*", "../../libs/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+}
