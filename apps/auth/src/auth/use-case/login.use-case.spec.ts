@@ -66,7 +66,7 @@ describe('LoginUseCase', () => {
   });
 
   describe('execute', () => {
-    it('should return access token when credentials are valid', async () => {
+    it('[success] 자격 증명이 유효한 경우, access token 반환', async () => {
       // Arrange
       jest.spyOn(userRepository, 'findByUsername').mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
@@ -90,7 +90,7 @@ describe('LoginUseCase', () => {
       );
     });
 
-    it('should throw UnauthorizedException when user is not found', async () => {
+    it('[error] 사용자가 없는 경우, throw UnauthorizedException', async () => {
       // Arrange
       jest.spyOn(userRepository, 'findByUsername').mockResolvedValue(null);
 
@@ -99,7 +99,7 @@ describe('LoginUseCase', () => {
       await expect(useCase.execute(mockLoginDto)).rejects.toThrow('Invalid credentials');
     });
 
-    it('should throw UnauthorizedException when password is invalid', async () => {
+    it('[error] 비밀번호가 유효하지 않는 경우, throw UnauthorizedException', async () => {
       // Arrange
       jest.spyOn(userRepository, 'findByUsername').mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);

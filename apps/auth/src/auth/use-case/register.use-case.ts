@@ -1,7 +1,7 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { UserRepository } from '../../user/user.repository';
 import { RegisterDto } from '../dto/register.dto';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class RegisterUseCase {
