@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, collection: 'rewardRequests' })
 export class RewardRequest extends Document {
   @Prop({ required: true, type: Types.ObjectId })
   userId: Types.ObjectId;
