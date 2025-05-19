@@ -19,18 +19,15 @@ export class EventController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN, Role.OPERATOR)
   async create(@Body() data: Partial<Event>) {
-    console.log(data, 'duarbdhks 111111');
     return this.createEventUseCase.execute(data);
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard)
   async findAll() {
     return this.findEventsUseCase.execute();
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
   async findOne(@Param('id') id: string) {
     return this.findEventUseCase.execute(id);
   }

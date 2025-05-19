@@ -10,7 +10,7 @@ export class EventRepository {
   async create(event: Partial<Event>): Promise<Event> {
     const eventData = {
       ...event,
-      createdBy: new Types.ObjectId(event.createdBy)
+      createdBy: new Types.ObjectId(event.createdBy),
     };
     return this.eventModel.create(eventData);
   }
