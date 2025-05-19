@@ -109,10 +109,10 @@ nestjs-event-reward-system/
 │       │   ├── app.module.ts
 │       │   ├── event/
 │       │   │   ├── event.module.ts
-│   │   │   │   ├── use-case
-│   │   │   │   │   ├── create-event.use-case.ts
-│   │   │   │   │   ├── find-event.use-case.ts
-│   │   │   │   │   └── find-events.use-case.ts
+│       │   │   ├── use-case
+│       │   │   │   ├── create-event.use-case.ts
+│       │   │   │   ├── find-event.use-case.ts
+│       │   │   │   └── find-events.use-case.ts
 │       │   │   ├── event.entity.ts
 │       │   │   ├── event.repository.ts
 │       │   │   ├── event.controller.ts
@@ -126,7 +126,7 @@ nestjs-event-reward-system/
 │       │       ├── reward-request.entity.ts
 │       │       ├── reward-request.repository.ts
 │       │       ├── reward-request.controller.ts
-│   │   ├── tsconfig.app.json
+│       ├── tsconfig.app.json
 │       └── Dockerfile
 │
 ├── libs/
@@ -230,10 +230,8 @@ erDiagram
   title : string,
   description : string,
   condition : string, // e.g., 'login_3_days'
-  duration : {
-    start: Date,
-    end: Date
-  },
+  start: Date,
+  end: Date
   isActive: boolean,
   createdBy: ObjectId(User)
 }
@@ -303,11 +301,14 @@ erDiagram
 
 #### \[보상 요청]
 
-| 메서드  | 경로                     | 설명          | 권한                             |
-|------|------------------------|-------------|--------------------------------|
-| POST | `/rewards/request`     | 보상 요청       | `USER`                         |
-| GET  | `/rewards/request`     | 본인 요청 이력 조회 | `USER`                         |
-| GET  | `/rewards/request/all` | 전체 요청 이력 조회 | `AUDITOR`, `OPERATOR`, `ADMIN` |
+| 메서드  | 경로                           | 설명                | 권한                             |
+|------|------------------------------|-------------------|--------------------------------|
+| POST | `/rewards/request`          | 보상 요청 생성          | `USER`                         |
+| GET  | `/rewards/request/my`       | 본인 요청 이력 조회       | `USER`                         |
+| GET  | `/rewards/request/all`      | 전체 요청 이력 조회       | `AUDITOR`, `OPERATOR`, `ADMIN` |
+| GET  | `/rewards/request/:id`      | 특정 요청 상세 조회       | `AUDITOR`, `OPERATOR`, `ADMIN` |
+| PATCH| `/rewards/request/:id/grant`| 보상 요청 승인         | `OPERATOR`, `ADMIN`           |
+| PATCH| `/rewards/request/:id/reject`| 보상 요청 거절         | `OPERATOR`, `ADMIN`           |
 
 ---
 
