@@ -9,6 +9,10 @@
 
 ## 🧱 아키텍처 구성
 
+### 아키텍처 설명
+* 모노레포를 이용한 MSA 구조
+* UseCase 패턴을 적용하여 SRP (단일 책임 원칙) 준수 및 유지보수, 테스트 용이성 증가
+
 ### 서비스 구조 (MSA 기반)
 
 <details>
@@ -21,15 +25,15 @@ flowchart TD
     end
 
     subgraph Gateway Server
-        B[Gateway\nNestJS 10.4.17\nNode.js 18.20.8\n- 인증\n- 권한 검사\n- 라우팅]
+        B[Gateway<br>- NestJS 10.4.17<br>Node.js 18.20.8<br>- 인증<br>- 권한 검사<br>- 라우팅]
     end
 
     subgraph Auth Server
-        C[Auth\nNestJS 10.4.17\nNode.js 18.20.8\n- 로그인/회원가입\n- 역할 관리\n- JWT 발급]
+        C[Auth<br>NestJS 10.4.17<br>Node.js 18.20.8<br>- 로그인/회원가입<br>- 역할 관리<br>- JWT 발급]
     end
 
     subgraph Event Server
-        D[Event\nNestJS 10.4.17\nNode.js 18.20.8\n- 이벤트/보상 관리\n- 조건 검증\n- 요청 처리]
+        D[Event<br>NestJS 10.4.17<br>Node.js 18.20.8<br>- 이벤트/보상 관리<br>- 조건 검증<br>- 요청 처리]
     end
 
     subgraph Database
@@ -66,7 +70,7 @@ flowchart TD
 ### 프로젝트 구조
 
 ```
-event-reward-platform/
+nestjs-event-reward-system/
 ├── apps/
 │   ├── gateway/
 │   │   ├── src/
@@ -83,41 +87,53 @@ event-reward-platform/
 │   │   │   ├── main.ts
 │   │   │   ├── app.module.ts
 │   │   │   ├── auth/
+│   │   │   │   ├── auth.module.ts
+│   │   │   │   ├── use-case
+│   │   │   │   │   ├── login.use-case.ts
+│   │   │   │   │   ├── register.use-case.ts
+│   │   │   │   │   └── user-profile.use-case.ts
 │   │   │   │   ├── auth.controller.ts
-│   │   │   │   ├── auth.service.ts
 │   │   │   │   └── jwt.strategy.ts
-│   │   │   └── users/
+│   │   │   └── user/
+│   │   │   │   ├── user.module.ts
 │   │   │       ├── user.entity.ts
-│   │   │       └── user.service.ts
+│   │   │       └── user.repository.ts
 │   │   └── Dockerfile
 │   │
 │   └── event/
 │       ├── src/
 │       │   ├── main.ts
 │       │   ├── app.module.ts
-│       │   ├── events/
+│       │   ├── event/
+│       │   │   ├── event.module.ts
+│   │   │   │   ├── use-case
+│   │   │   │   │   ├── create-event.use-case.ts
+│   │   │   │   │   ├── find-event.use-case.ts
+│   │   │   │   │   └── find-events.use-case.ts
 │       │   │   ├── event.entity.ts
+│       │   │   ├── event.repository.ts
 │       │   │   ├── event.controller.ts
-│       │   │   └── event.service.ts
-│       │   ├── rewards/
+│       │   ├── reward/
+│       │   │   ├── reward.module.ts
 │       │   │   ├── reward.entity.ts
+│       │   │   ├── reward.repository.ts
 │       │   │   ├── reward.controller.ts
-│       │   │   └── reward.service.ts
-│       │   └── reward-requests/
+│       │   └── reward-request/
+│       │   │   ├── reward-request.module.ts
 │       │       ├── reward-request.entity.ts
+│       │       ├── reward-request.repository.ts
 │       │       ├── reward-request.controller.ts
-│       │       └── reward-request.service.ts
 │       └── Dockerfile
 │
 ├── libs/
 │   ├── common/
-│   │   ├── decorators/
-│   │   ├── dtos/
-│   │   ├── filters/
-│   │   ├── guards/
-│   │   ├── interceptors/
-│   │   └── utils/
-│   └── constants/
+│   │   ├── decorator/
+│   │   ├── dto/
+│   │   ├── filter/
+│   │   ├── guard/
+│   │   ├── interceptor/
+│   │   └── util/
+│   └── constant.ts
 │
 ├── docker-compose.yml
 ├── .env
@@ -128,7 +144,7 @@ event-reward-platform/
 ### 구조 설명
 
 * **apps/**: MSA 구조의 각 서비스 (gateway, auth, event)를 포함
-* **libs/common/**: NestJS에서 공유 가능한 데코레이터, 필터, 가드, 유틸 등의 공용 모듈 집합
+* **libs/common/**: NestJS 에서 공유 가능한 데코레이터, 필터, 가드, 유틸 등의 공용 모듈 집합
 * **docker-compose.yml**: 전체 서비스 통합 실행
 * **.env**: 공통 환경 변수 파일
 
@@ -296,7 +312,7 @@ erDiagram
 ```bash
 # 1. 저장소 클론
 $ git clone <레포 주소>
-$ cd event-reward-platform
+$ cd nestjs-event-reward-system
 
 # 2. Docker Compose 실행
 $ docker-compose up --build
