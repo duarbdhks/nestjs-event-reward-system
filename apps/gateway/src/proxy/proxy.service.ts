@@ -23,7 +23,6 @@ export class ProxyService {
     try {
       const url = this.getServiceUrl(service);
       const { authorization } = headers ?? {};
-      console.log(authorization, headers, 'duarbdhks');
       const safeHeaders = authorization ? { authorization } : {};
       const response = await firstValueFrom(
         this.httpService.request({
