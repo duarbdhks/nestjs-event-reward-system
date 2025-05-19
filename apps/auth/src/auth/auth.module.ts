@@ -1,13 +1,13 @@
+import { JwtStrategy } from '@guard/jwt.strategy';
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ConfigService } from '@nestjs/config';
+import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { LoginUseCase } from './use-case/login.use-case';
 import { RegisterUseCase } from './use-case/register.use-case';
 import { UserProfileUseCase } from './use-case/user-profile.use-case';
-import { JwtStrategy } from './jwt.strategy';
-import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [

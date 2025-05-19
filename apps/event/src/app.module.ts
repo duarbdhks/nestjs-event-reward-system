@@ -1,10 +1,11 @@
+import { CustomJwtModule } from '@common/jwt/custom-jwt.module';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { EventModule } from './event/event.module';
-import { RewardModule } from './reward/reward.module';
-import { RewardRequestModule } from './reward-request/reward-request.module';
+import { MongooseModule } from '@nestjs/mongoose';
 import configuration from './config/configuration';
+import { EventModule } from './event/event.module';
+import { RewardRequestModule } from './reward-request/reward-request.module';
+import { RewardModule } from './reward/reward.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import configuration from './config/configuration';
       }),
       inject: [ConfigService],
     }),
+    CustomJwtModule,
     EventModule,
     RewardModule,
     RewardRequestModule,

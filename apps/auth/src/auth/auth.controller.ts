@@ -1,10 +1,10 @@
-import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
+import { JwtAuthGuard } from '@guard/jwt-auth.guard';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
 import { LoginUseCase } from './use-case/login.use-case';
 import { RegisterUseCase } from './use-case/register.use-case';
 import { UserProfileUseCase } from './use-case/user-profile.use-case';
-import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
-import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {

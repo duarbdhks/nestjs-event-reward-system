@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { EventRepository } from '../event.repository';
 import { Event } from '../event.entity';
+import { EventRepository } from '../event.repository';
 
 @Injectable()
 export class CreateEventUseCase {

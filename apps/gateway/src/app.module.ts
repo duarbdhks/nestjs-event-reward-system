@@ -1,6 +1,6 @@
+import { CustomJwtModule } from '@common/jwt/custom-jwt.module';
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { ProxyModule } from './proxy/proxy.module';
 
@@ -10,15 +10,7 @@ import { ProxyModule } from './proxy/proxy.module';
       isGlobal: true,
       load: [configuration],
     }),
-    JwtModule.registerAsync({
-      global: true,
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('jwt.secret'),
-        signOptions: { expiresIn: configService.get<string>('jwt.expiresIn') },
-      }),
-      inject: [ConfigService],
-    }),
+    CustomJwtModule,
     ProxyModule,
   ],
 })

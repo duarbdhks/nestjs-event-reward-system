@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Method } from 'axios';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -18,19 +19,29 @@ export class ProxyService {
     return url;
   }
 
-  async forwardRequest(service: string, method: string, path: string, body?: any, headers?: any) {
+  async forwardRequest(service: string, method: Method, path: string, body?: any, headers?: any) {
     try {
       const url = this.getServiceUrl(service);
+      const { authorization } = headers ?? {};
+      console.log(authorization, headers, 'duarbdhks');
+      const safeHeaders = authorization ? { authorization } : {};
       const response = await firstValueFrom(
         this.httpService.request({
           method,
           url: `${url}${path}`,
-          data: { ...body },
-          headers: { ...headers, 'Content-Type': 'application/json' },
+          data: body,
+          headers: safeHeaders,
         }),
       );
+
       return response.data;
     } catch (error) {
+      console.error(`[Proxy] Error forwarding request to ${service}:`, {
+        error: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+      });
+
       if (error.response) {
         throw new HttpException(error.response.data, error.response.status);
       }
