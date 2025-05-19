@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "../dist/libs",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["./common/*"],
+      "@guard/*": ["./common/guard/*"],
+      "@decorator/*": ["./common/decorator/*"],
+      "@filter/*": ["./common/filter/*"],
+      "@interceptor/*": ["./common/interceptor/*"],
+      "@dto/*": ["./common/dto/*"]
+    },
+    "strict": true
+  },
+  "include": ["./**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+}
