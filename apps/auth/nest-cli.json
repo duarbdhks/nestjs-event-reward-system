@@ -1,0 +1,10 @@
+{
+  "collection": "@nestjs/schematics",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": false,
+    "tsConfigPath": "apps/auth/tsconfig.app.json"
+  },
+  "entryFile": "main",
+  "sourceRoot": "apps/auth/src"
+}
