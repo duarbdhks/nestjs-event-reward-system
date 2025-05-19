@@ -313,6 +313,17 @@ erDiagram
 
 ## 🐳 실행 방법 (Docker Compose)
 
+### Node.js 버전 관리 (nvm)
+
+```bash
+# 1. nvm 설치 (이미 설치되어 있지 않은 경우)
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+# 2. Node.js 18.20.8 버전 설치 및 사용
+$ nvm install 18.20.8
+$ nvm use 18.20.8
+```
+
 ### 저장소 복제 및 서비스 실행
 
 ```bash
