@@ -95,7 +95,6 @@ nestjs-event-reward-system/
 │   │   │   │   │   ├── register.use-case.ts
 │   │   │   │   │   └── user-profile.use-case.ts
 │   │   │   │   ├── auth.controller.ts
-│   │   │   │   └── jwt.strategy.ts
 │   │   │   └── user/
 │   │   │   │   ├── user.module.ts
 │   │   │       ├── user.entity.ts
@@ -136,7 +135,7 @@ nestjs-event-reward-system/
 │   │   ├── filter/
 │   │   ├── guard/
 │   │   ├── interceptor/
-│   │   └── util/
+│   │   └── jwt/
 │   └── tsconfig.app.json
 │
 ├── docker-compose.yml
