@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
+    ports:
+      #      - "3000:3000"
+      - "30000:3000"
+    environment:
+      NODE_ENV: 'production'
+      GATEWAY_PORT: '3000'
+      AUTH_SERVICE_URL: 'http://auth:3001'
+      EVENT_SERVICE_URL: 'http://event:3002'
+      JWT_SECRET: 'vavpltCunGA7mF8Qm0jnAeKFI1F/dgfU5bf4xmUnfpdsROuBEFmWRIRkCzssGqM3'
+    depends_on:
+      - auth
+      - event
+
+  auth:
+    container_name: auth
+    build:
+      context: .
+      dockerfile: apps/auth/Dockerfile
+    ports:
+      #      - "3001:3001"
+      - "30001:3001"
+    environment:
+      NODE_ENV: 'production'
+      AUTH_PORT: '3001'
+      AUTH_MONGODB_URI: 'mongodb://mongodb:27017/auth'
+      JWT_SECRET: 'vavpltCunGA7mF8Qm0jnAeKFI1F/dgfU5bf4xmUnfpdsROuBEFmWRIRkCzssGqM3'
+      JWT_EXPIRES_IN: '1d'
+    depends_on:
+      - mongodb
+
+  event:
+    container_name: event
+    build:
+      context: .
+      dockerfile: apps/event/Dockerfile
+    ports:
+      #      - "3002:3002"
+      - "30002:3002"
+    environment:
+      NODE_ENV: 'production'
+      EVENT_PORT: '3002'
+      EVENT_MONGODB_URI: 'mongodb://mongodb:27017/event'
+      JWT_SECRET: 'vavpltCunGA7mF8Qm0jnAeKFI1F/dgfU5bf4xmUnfpdsROuBEFmWRIRkCzssGqM3'
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./docker/volume/mongodb:/data/db

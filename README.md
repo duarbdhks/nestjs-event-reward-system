@@ -10,6 +10,7 @@
 ## 🧱 아키텍처 구성
 
 ### 아키텍처 설명
+
 * 모노레포를 이용한 MSA 구조
 * UseCase 패턴을 적용하여 SRP (단일 책임 원칙) 준수 및 유지보수, 테스트 용이성 증가
 
@@ -80,6 +81,7 @@ nestjs-event-reward-system/
 │   │   │   ├── roles.guard.ts
 │   │   │   └── routes/
 │   │   │       └── proxy.module.ts
+│   │   ├── tsconfig.app.json
 │   │   └── Dockerfile
 │   │
 │   ├── auth/
@@ -98,6 +100,7 @@ nestjs-event-reward-system/
 │   │   │   │   ├── user.module.ts
 │   │   │       ├── user.entity.ts
 │   │   │       └── user.repository.ts
+│   │   ├── tsconfig.app.json
 │   │   └── Dockerfile
 │   │
 │   └── event/
@@ -123,6 +126,7 @@ nestjs-event-reward-system/
 │       │       ├── reward-request.entity.ts
 │       │       ├── reward-request.repository.ts
 │       │       ├── reward-request.controller.ts
+│   │   ├── tsconfig.app.json
 │       └── Dockerfile
 │
 ├── libs/
@@ -133,7 +137,7 @@ nestjs-event-reward-system/
 │   │   ├── guard/
 │   │   ├── interceptor/
 │   │   └── util/
-│   └── constant.ts
+│   └── tsconfig.app.json
 │
 ├── docker-compose.yml
 ├── .env
@@ -309,11 +313,20 @@ erDiagram
 
 ## 🐳 실행 방법 (Docker Compose)
 
+### 저장소 복제 및 서비스 실행
+
 ```bash
 # 1. 저장소 클론
-$ git clone <레포 주소>
+$ git clone git@github.com:duarbdhks/nestjs-event-reward-system.git
 $ cd nestjs-event-reward-system
 
+# 2. 로컬 실행 (development)
+$ npm run start:dev
+```
+
+### Docker Compose 실행
+
+```bash
 # 2. Docker Compose 실행
 $ docker-compose up --build
 ```
@@ -331,7 +344,7 @@ $ docker-compose up --build
 * 역할 기반 인증은 **NestJS의 Guard**를 통해 구현
 * 이벤트 조건은 문자열로 관리하며, 나중에 DSL 파서나 엔진 도입 여지 고려
 * MSA 간 인증은 내부 Secret 기반의 JWT 공유 구조로 처리 가능
-* 향후 Redis, Kafka 등으로 확장 가능성 있음
+* 향후 Redis, Kafka 등으로 결합도를 낮추고, 비동기 처리 고려
 
 ---
 
@@ -342,9 +355,10 @@ $ docker-compose up --build
 
 ---
 
-## 🙋 자주 묻는 질문 (FAQ)
+## 📝 백로그
 
-* **Q. 프론트엔드는 없나요?**
-    * A. API 테스트 도구 (Postman, Insomnia 등) 사용을 전제로 합니다.
-* **Q. 이벤트 조건은 어떻게 처리하나요?**
+* **1. 이벤트 조건은 어떻게 처리하나요?**
     * A. 문자열 조건 기반의 하드코딩 검증이며, 향후 룰 엔진 연동을 고려
+* **2. 서비스 별 버전관리는 어떻게 하나요?**
+    * A. 사실 각 서비스 별 package.json 버전 관리가 필요하며, monorepo 구조에서 각 서비스의 버전을 관리하는 방법을 고려해야 함
+    * 예를 들어, Lerna 또는 Nx와 같은 도구를 사용하여 monorepo 에서 각 서비스의 버전을 관리할 수 있음.

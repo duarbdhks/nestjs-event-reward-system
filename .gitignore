@@ -11,5 +11,8 @@ dist/
 !.env.example
 coverage/
 
-# ds_store
+## ds_store
 **/.DS_Store
+
+## docker database volume
+/docker/volume/
