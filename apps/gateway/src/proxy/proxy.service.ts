@@ -1,5 +1,5 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 
@@ -25,11 +25,8 @@ export class ProxyService {
         this.httpService.request({
           method,
           url: `${url}${path}`,
-          data: body,
-          headers: {
-            ...headers,
-            'Content-Type': 'application/json',
-          },
+          data: { ...body },
+          headers: { ...headers, 'Content-Type': 'application/json' },
         }),
       );
       return response.data;
