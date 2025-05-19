@@ -1,18 +1,18 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { RewardRequest } from '../reward-request.entity';
 import { RewardRequestRepository } from '../reward-request.repository';
 
 @Injectable()
 export class CreateRewardRequestUseCase {
-  constructor(private readonly rewardRequestRepository: RewardRequestRepository) { }
+  constructor(private readonly rewardRequestRepository: RewardRequestRepository) {}
 
   async execute(data: Partial<RewardRequest>): Promise<RewardRequest> {
     const { userId, eventId } = data;
 
     // 이미 존재하는 요청이 있는지 확인
     const existingRequest = await this.rewardRequestRepository.findByEventIdAndUserId(
-      eventId,
-      userId,
+      eventId.toString(),
+      userId.toString(),
     );
 
     if (existingRequest) {
